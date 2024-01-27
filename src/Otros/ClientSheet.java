@@ -27,6 +27,7 @@ public class ClientSheet {
             diente.setSeleccionado(false);
             dentadura[i] = diente;
         }
+        
     }
 
     public ClientSheet(String clientName, String notes){

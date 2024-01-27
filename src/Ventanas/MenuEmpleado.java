@@ -2,6 +2,8 @@ package Ventanas;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
+
 import Otros.Account;
 import Otros.ClientSheet;
 import Otros.MaterialSheet;
@@ -13,6 +15,7 @@ public class MenuEmpleado extends javax.swing.JFrame {
     private MaterialSheet[] materialSheets;
     private Tratamiento[] tratamientos;
     private ClientSheet[] clientes;
+    private JButton jButton_regresar;
 
     public MenuEmpleado(Account account, MaterialSheet[] n,Tratamiento[] tratamientos, ClientSheet[] clientes) {
         this.account = account;
@@ -26,8 +29,16 @@ public class MenuEmpleado extends javax.swing.JFrame {
 
         jButton_registroPaciente = new javax.swing.JButton();
         jButton_registroInventario = new javax.swing.JButton();
+        jButton_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton_regresar.setText("Regresar");
+        jButton_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_regresarActionPerformed(evt);
+            }
+        });
 
         jButton_registroPaciente.setText("Registro de Pacientes");
         jButton_registroPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +61,7 @@ public class MenuEmpleado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_registroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_registroInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 61, Short.MAX_VALUE))
@@ -57,7 +69,8 @@ public class MenuEmpleado extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addComponent(jButton_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addComponent(jButton_registroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(jButton_registroInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -67,6 +80,11 @@ public class MenuEmpleado extends javax.swing.JFrame {
         setResizable(false);
     } 
     
+    protected void jButton_regresarActionPerformed(ActionEvent evt) {
+        new CodigoAcceso().setVisible(true);
+        dispose();
+    }
+
     protected void jButton_registroInventarioActionPerformed(ActionEvent evt) {
         new Inventario(account, materialSheets,tratamientos,clientes).setVisible(true);
         dispose();
