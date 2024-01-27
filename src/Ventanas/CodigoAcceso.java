@@ -22,9 +22,9 @@ public class CodigoAcceso extends javax.swing.JFrame {
         accounts[4] = new Account("Ejemplo 2",500,false);
         accounts[0] = new Account("Ejemplo 3",600,true);
         //String materialName, double costPerGram, double quantityStored, String description, String ruta
-        materiales[0] = new MaterialSheet("Zirconio",10,100,"Se utiliza para limpieza","C:\\Users\\javie\\Desktop\\Ejemplo\\Zirconio.png");
-        materiales[1] = new MaterialSheet("Pasta",1,100,"Se utiliza para limpieza","C:\\Users\\javie\\Desktop\\Ejemplo\\Zirconio.png");
-        materiales[2] = new MaterialSheet("Cepillo",100,100,"Se utiliza para limpieza","C:\\Users\\javie\\Desktop\\Ejemplo\\Zirconio.png");
+        materiales[0] = new MaterialSheet(1,"Circonio",10,100,"Se utiliza para limpieza","C:\\Users\\javie\\Desktop\\Ejemplo\\Circonio.jpg");
+        materiales[1] = new MaterialSheet(2,"Pasta",1,100,"Se utiliza para limpieza","C:\\Users\\javie\\Desktop\\Ejemplo\\Pasta.png");
+        materiales[2] = new MaterialSheet(3,"Cepillo",100,100,"Se utiliza para limpieza","C:\\Users\\javie\\Desktop\\Ejemplo\\Cepillo.jpg");
         //Double monto, String nombre, Integer id
         tratamientos[0] = new Tratamiento(12.00,"Tra 1",1,false);
         tratamientos[1] = new Tratamiento(24.00,"Tra 2",2,false);

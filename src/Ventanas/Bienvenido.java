@@ -16,6 +16,7 @@ public class Bienvenido extends javax.swing.JFrame {
         this.materialSheets =  materialSheets;
         this.tratamientos = tratamientos;
         this.clientes = clientes;
+        account.LogLogIn();
         initComponents();
     }
                        

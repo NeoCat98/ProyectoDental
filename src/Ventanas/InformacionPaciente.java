@@ -16,17 +16,18 @@ public class InformacionPaciente extends javax.swing.JFrame {
     private Account[] accounts;
     private MaterialSheet[] materialSheets;
     private Tratamiento[] tratamientos;
-    private ClientSheet Cliente = new ClientSheet();
+    private ClientSheet Cliente;
     private ClientSheet[] clientes;
 
     public InformacionPaciente(String tipo,Account account, Account[] accounts, MaterialSheet[] materialSheets, Tratamiento[] tratamientos, ClientSheet[] clientes,ClientSheet cliente) {
+        account.LogAccess();
         this.account= account;
         this.accounts = accounts;
         this.materialSheets = materialSheets;
         this.tratamientos = tratamientos;
         this.clientes = clientes;
         this.Cliente = cliente;
-        if(this.Cliente.getTreatmentsSelected()==null){
+        if(this.Cliente.getTreatmentsSelected() == null){
             this.Cliente.setTreatmentsSelected(tratamientos);
         }
         initComponents();
@@ -1582,6 +1583,7 @@ public class InformacionPaciente extends javax.swing.JFrame {
     }
     protected void jButton_EditarActionPerformed(ActionEvent evt) {
         if(jButton_Editar.getText() == "Aplicar"){
+            account.LogEdit();
             //Guardar Cambios
             CrearNuevo = false;
 

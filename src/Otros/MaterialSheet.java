@@ -7,14 +7,17 @@ public class MaterialSheet {
     double quantityStored;
     String description;
     String ruta;
+    Integer id;
 
     public MaterialSheet(){}
 
-    public MaterialSheet(String materialName, double costPerGram, double quantityStored, String description, String ruta){
+    public MaterialSheet(Integer id,String materialName, double costPerGram, double quantityStored, String description, String ruta){
         this.materialName = materialName;
         this.costPerGram = costPerGram;
         this.description = description;
         this.quantityStored = quantityStored;
+        this.ruta = ruta;
+        this.id = id;
     }
 
 
@@ -50,5 +53,22 @@ public class MaterialSheet {
         this.description = description;
     }
 
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
 
 }

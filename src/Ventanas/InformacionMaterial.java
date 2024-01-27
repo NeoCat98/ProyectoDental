@@ -1,7 +1,15 @@
 package Ventanas;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Otros.Account;
 import Otros.ClientSheet;
@@ -25,6 +33,7 @@ public class InformacionMaterial extends javax.swing.JFrame {
         this.materialSheet = materialSheet;
         this.tratamientos = tratamientos;
         this.clientes = clientes;
+        this.material = new MaterialSheet();
         initComponents();
         if(nuevo){
             jTextField_nombreMaterial.setEnabled(true);
@@ -101,6 +110,36 @@ public class InformacionMaterial extends javax.swing.JFrame {
         });
 
         jLabel_fotoMaterial.setToolTipText("");
+        if(material.getRuta()!=null){
+            ImageIcon Ii = new ImageIcon(material.getRuta());
+            Image image = Ii.getImage().getScaledInstance(230, 230, Image.SCALE_SMOOTH);
+            jLabel_fotoMaterial.setIcon(new ImageIcon(image));
+        }
+        jLabel_fotoMaterial.addMouseListener(new java.awt.event.MouseListener() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(jTextField_nombreMaterial.isEnabled()){
+                    jLabel_fotoMaterialActionPerformed(e);
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+        });
         jLabel_fotoMaterial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel_costo.setText("Costo Individual");
@@ -182,6 +221,25 @@ public class InformacionMaterial extends javax.swing.JFrame {
     }                                                                          
 
 
+    protected void jLabel_fotoMaterialActionPerformed(MouseEvent e) {
+        JFileChooser browseImageFile = new JFileChooser();
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png","jpg","jpeg");
+        
+        browseImageFile.addChoosableFileFilter(fnef);
+        int showOpenDialog = browseImageFile.showOpenDialog(null);
+        if(showOpenDialog == JFileChooser.APPROVE_OPTION){
+            File selectedImageFile = browseImageFile.getSelectedFile();
+            String selectedImagePath = selectedImageFile.getAbsolutePath();
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+
+            ImageIcon Ii = new ImageIcon(selectedImagePath);
+            Image image = Ii.getImage().getScaledInstance(jLabel_fotoMaterial.getWidth(), jLabel_fotoMaterial.getHeight(), Image.SCALE_SMOOTH);
+            
+            material.setRuta(selectedImagePath);
+            jLabel_fotoMaterial.setIcon(new ImageIcon(image));
+        }
+    }
+
     protected void jButton_RegresarActionPerformed(ActionEvent evt) {
         if(jButton_Regresar.getText() == "Regresar"){
             //Volver a la pagina anterior\
@@ -217,20 +275,40 @@ public class InformacionMaterial extends javax.swing.JFrame {
     protected void jButton_EditarActionPerformed(ActionEvent evt) {
         if(jButton_Editar.getText() == "Aplicar"){
             //Guardar Cambios
-            nuevo = false;
-            //////////////////////////////////////////
-            MaterialSheet materialNuevo = new MaterialSheet();
-            materialNuevo.setCostPerGram(Double.parseDouble(jTextField_costo.getText()));
-            materialNuevo.setDescription(jTextArea_descripcion.getText());
-            materialNuevo.setMaterialName(jTextField_nombreMaterial.getText());
-            materialNuevo.setQuantityStored(Double.parseDouble(jTextField_cantidad.getText()));
-            int cont = 0;
-            for (MaterialSheet m : materialSheet) {
-                if(m == null){
-                    materialSheet[cont] = materialNuevo;
-                    break;
+            if(nuevo){
+                //////////////////////////////////////////
+                material.setCostPerGram(Double.parseDouble(jTextField_costo.getText()));
+                material.setDescription(jTextArea_descripcion.getText());
+                material.setMaterialName(jTextField_nombreMaterial.getText());
+                material.setQuantityStored(Double.parseDouble(jTextField_cantidad.getText()));
+                int cont = 0;
+                for (MaterialSheet m : materialSheet) {
+                    if(m == null){
+                        materialSheet[cont] = material;
+                        break;
+                    }
+                    //if(m)
+                    cont++;   
                 }
-                cont++;   
+            }
+            else{
+                //////////////////////////////////////////
+                material.setCostPerGram(Double.parseDouble(jTextField_costo.getText()));
+                material.setDescription(jTextArea_descripcion.getText());
+                material.setMaterialName(jTextField_nombreMaterial.getText());
+                material.setQuantityStored(Double.parseDouble(jTextField_cantidad.getText()));
+                int cont = 0;
+                for (MaterialSheet m : materialSheet) {
+                    if(m == null){
+                        materialSheet[cont] = material;
+                        break;
+                    }
+                    if(m.getId().equals(material.getId())){
+                        materialSheet[cont] = material;
+                        break;
+                    }
+                    cont++;   
+                }
             }
             jTextField_nombreMaterial.setEnabled(false);
             jTextField_costo.setEnabled(false);
@@ -238,6 +316,7 @@ public class InformacionMaterial extends javax.swing.JFrame {
             jTextArea_descripcion.setEnabled(false);
             jButton_Editar.setText("Editar");
             jButton_Regresar.setText("Regresar");
+
         }
         else{
             jTextField_nombreMaterial.setEnabled(true);

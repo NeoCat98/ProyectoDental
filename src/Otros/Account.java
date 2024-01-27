@@ -1,7 +1,14 @@
 package Otros;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.Date;
 import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 public class Account {
     Random genCode = new Random();
@@ -27,6 +34,45 @@ public class Account {
         System.out.println("Access code of employee " + name + " is: " + accessCode);
     }
 
+    public void LogLogIn(){
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\javie\\Desktop\\Ejemplo\\Admin\\Logs Login\\"+accessCode+".txt", false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(""+ultimoInicioSesion);
+            bw.close();
+        }
+        catch(Exception E){
+            JOptionPane.showMessageDialog(null,"Record Not Saved!");
+
+        }
+    }
+
+    public void LogAccess(){
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\javie\\Desktop\\Ejemplo\\Admin\\Logs Access\\"+accessCode+".txt", false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(""+new Date());
+            bw.close();
+        }
+        catch(Exception E){
+            JOptionPane.showMessageDialog(null,"Record Not Saved!");
+
+        }
+    }
+
+    public void LogEdit(){
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\javie\\Desktop\\Ejemplo\\Admin\\Logs Edit\\"+accessCode+".txt", false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(""+new Date());
+            bw.close();
+        }
+        catch(Exception E){
+            JOptionPane.showMessageDialog(null,"Record Not Saved!");
+
+        }
+    }
+
     public void priority(){
         specialAccess = true;
     }
@@ -47,8 +93,18 @@ public class Account {
         this.name = name;
     }
 
-    public Date getultimoInicioSesion() {
-        return ultimoInicioSesion;
+    public String getultimoInicioSesion() {
+        File doc = new File("C:\\Users\\javie\\Desktop\\Ejemplo\\Admin\\Logs Login\\"+accessCode+".txt");
+        String line = "";
+        try (Scanner obj = new Scanner(doc)) {
+            while (obj.hasNextLine()) {
+                line = obj.nextLine();
+            }
+            
+        } catch (FileNotFoundException e) {
+
+        }
+        return line;
     }
 
     public void setultimoInicioSesion(Date ultimoInicioSesion) {
@@ -71,15 +127,35 @@ public class Account {
         this.specialAccess = specialAccess;
     }  
 
-    public Date getultimoAccesoRegistro() {
-        return ultimoAccesoRegistro;
+    public String getultimoAccesoRegistro() {
+        File doc = new File("C:\\Users\\javie\\Desktop\\Ejemplo\\Admin\\Logs Access\\"+accessCode+".txt");
+        String line = "";
+        try (Scanner obj = new Scanner(doc)) {
+            while (obj.hasNextLine()) {
+                line = obj.nextLine();
+            }
+            
+        } catch (FileNotFoundException e) {
+
+        }
+        return line;
     }
 
     public void setultimoAccesoRegistro(Date ultimoAccesoRegistro) {
         this.ultimoAccesoRegistro = ultimoAccesoRegistro;
     }
-    public Date getultimoEditadoRegistro() {
-        return ultimoEditadoRegistro;
+    public String getultimoEditadoRegistro() {
+        File doc = new File("C:\\Users\\javie\\Desktop\\Ejemplo\\Admin\\Logs Edit\\"+accessCode+".txt");
+        String line = "";
+        try (Scanner obj = new Scanner(doc)) {
+            while (obj.hasNextLine()) {
+                line = obj.nextLine();
+            }
+            
+        } catch (FileNotFoundException e) {
+
+        }
+        return line;
     }
 
     public void setultimoEditadoRegistro(Date ultimoEditadoRegistro) {

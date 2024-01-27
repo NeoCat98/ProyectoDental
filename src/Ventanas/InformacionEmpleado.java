@@ -38,20 +38,23 @@ public class InformacionEmpleado extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel_nombreEmpleado.setText("Nombre del Empleado");
-        jLabel_nombreEmpleado.setEnabled(false);
 
         jLabel_ultimoInicioSesion.setText("Ultimo Inicio de Sesion");
-        jLabel_ultimoInicioSesion.setEnabled(false);
 
         jLabel__ultimoAccesoRegistro.setText("Ultimo Acceso de los Registros");
-        jLabel__ultimoAccesoRegistro.setEnabled(false);
 
         jLabel_ultimoEditadoRegistro.setText("Ultimo Editado de los Registros");
-        jLabel_ultimoEditadoRegistro.setEnabled(false);
 
+        
+        jTextField_ultimoEditadoRegistros.setEnabled(false);
+        jTextField_nombreEmpleado.setEnabled(false);
+        jTextField_ultimoInicioSesion.setEnabled(false);
+        jTextField_ultimoAccesoRegistros.setEnabled(false);
 
         jTextField_nombreEmpleado.setText(verEmpleado.getName());
-        jTextField_ultimoInicioSesion.setText(verEmpleado.getultimoInicioSesion().toString());
+        if (verEmpleado.getultimoInicioSesion() != null) {    
+            jTextField_ultimoInicioSesion.setText(verEmpleado.getultimoInicioSesion().toString());
+        }
         if (verEmpleado.getultimoEditadoRegistro() != null) {    
             jTextField_ultimoEditadoRegistros.setText(verEmpleado.getultimoEditadoRegistro().toString());
         }
